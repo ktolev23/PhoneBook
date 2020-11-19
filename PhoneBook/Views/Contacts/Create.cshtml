@@ -1,0 +1,35 @@
+﻿@model PhoneBook.ViewModels.Contacts.ContactsCreateVM
+@{
+    ViewData["Title"] = "Create Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<fieldset>
+    <legend>Create Contact</legend>
+    <form action="/Contacts/Create" method="post">
+        <div class="grid">
+            <div class="row">
+                <div class="col-1">FirstName:</div>
+                <div class="col-2">@Html.TextBoxFor(m => m.FirstName)</div>
+                <div class="col-2">@Html.ValidationMessageFor(m => m.FirstName)</div>
+            </div>
+            <div class="row">
+                <div class="col-1">LastName:</div>
+                <div class="col-2">@Html.TextBoxFor(m => m.LastName)</div>
+                <div class="col-2">@Html.ValidationMessageFor(m => m.LastName)</div>
+            </div>
+            <div class="row">
+                <div class="col-1">Email:</div>
+                <div class="col-2">@Html.TextBoxFor(m => m.Email)</div>
+                <div class="col-2">@Html.ValidationMessageFor(m => m.Email)</div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <input type="submit" value="Create" />
+                    <a href="/Contacts/Index">back</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</fieldset>
+

@@ -1,0 +1,55 @@
+﻿@model PhoneBook.ViewModels.Contacts.ContactsShareVM
+@using PhoneBook.Entity
+@{
+    ViewData["Title"] = "Share Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="grid">
+    <row class="col-3">
+        <h1>Share Contact:</h1>
+        <span class="b">First Name</span> @Model.Contact.FirstName <br />
+        <span class="b">Last Name</span> @Model.Contact.LastName <br />
+        <span class="b">Email</span> @Model.Contact.Email
+    </row>
+    <hr />
+    <div class="row">
+        <h2>This item is shared with: </h2>
+    </div>
+    <div class="row">
+        <div class="col-2">First Name</div>
+        <div class="col-2">Last Name</div>
+        <div class="col-2">Username</div>
+    </div>
+    @foreach (User item in Model.SharedWith)
+    {
+        <div class="row">
+            <div class="col-2">@item.FirstName</div>
+            <div class="col-2">@item.LastName</div>
+            <div class="col-2">(@item.Username)</div>
+            <div class="col-2">
+                <a href="/Contacts/RevokeAccess?UserId=@item.Id&ContactId=@Model.Contact.Id">revoke share</a>
+
+            </div>
+        </div>
+    }
+    <hr />
+    <div class="row">
+        <form action="/Contacts/Share" method="post">
+            <input type="hidden" name="ContactId" value="@Model.Contact.Id" />
+            <div class="col-1">Share</div>
+            <div class="col-3">
+                <select name="UserId">
+                    @foreach (User item in Model.Users)
+                    {
+                        <option value="@item.Id">@item.FirstName @item.LastName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-2">
+                <input type="submit" value="Share" />
+                <a href="/Contacts/Index">back</a>
+            </div>
+        </form>
+    </div>
+</div>
